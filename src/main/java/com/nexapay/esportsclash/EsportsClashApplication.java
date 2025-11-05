@@ -1,4 +1,4 @@
-package fr.ancyracademy.esportsclash;
+package com.nexapay.esportsclash;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
