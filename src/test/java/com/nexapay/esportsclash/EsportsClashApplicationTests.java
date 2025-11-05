@@ -1,4 +1,4 @@
-package fr.ancyracademy.esportsclash;
+package com.nexapay.esportsclash;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
