@@ -1,5 +1,6 @@
 package fr.ancyracademy.esportsclash.player.domain.model;
 
+import fr.ancyracademy.esportsclash.core.domain.model.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -7,9 +8,8 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="players")
-public class Player {
-    @Id
-    private String id;
+public class Player extends BaseEntity {
+
     @Column
     private String name;
 

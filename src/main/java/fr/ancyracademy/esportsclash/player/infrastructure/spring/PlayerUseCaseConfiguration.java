@@ -1,5 +1,7 @@
 package fr.ancyracademy.esportsclash.player.infrastructure.spring;
 
+import fr.ancyracademy.esportsclash.player.application.usecases.DeletePlayerCommandHandler;
+import fr.ancyracademy.esportsclash.player.application.usecases.GetPlayerByIdCommandHandler;
 import fr.ancyracademy.esportsclash.player.application.usecases.RenamePlayerCommandHandler;
 import fr.ancyracademy.esportsclash.player.application.usecases.ports.PlayerRepository;
 import fr.ancyracademy.esportsclash.player.application.usecases.CreatePlayerCommandHandler;
@@ -18,4 +20,15 @@ public class PlayerUseCaseConfiguration {
     public RenamePlayerCommandHandler renamePlayerUseCase(PlayerRepository repository){
         return new RenamePlayerCommandHandler(repository);
     }
+
+    @Bean
+    public DeletePlayerCommandHandler deletePlayerUseCase(PlayerRepository repository){
+        return new DeletePlayerCommandHandler(repository);
+    }
+
+    @Bean
+    public GetPlayerByIdCommandHandler getPlayerByIdUseCase(PlayerRepository repository){
+        return new GetPlayerByIdCommandHandler(repository);
+    }
+
 }

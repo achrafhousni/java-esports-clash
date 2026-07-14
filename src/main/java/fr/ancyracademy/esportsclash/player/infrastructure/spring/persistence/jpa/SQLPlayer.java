@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+// à suypprimer
 @Entity
 @Table(name="players")
 public class SQLPlayer {
