@@ -1,5 +1,6 @@
 package com.ancyracademy.esportsclash.player;
 
+ import com.ancyracademy.esportsclash.IntegrationTests;
  import com.ancyracademy.esportsclash.PostgreSQLTestConfiguration;
  import com.ancyracademy.esportsclash.player.application.usecases.ports.PlayerRepository;
 import com.ancyracademy.esportsclash.player.domain.model.Player;
@@ -18,16 +19,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
 
-@SpringBootTest
-@AutoConfigureMockMvc
-@Import(PostgreSQLTestConfiguration.class)
-@Transactional
-public class RenamePlayerE2ETests {
 
-    @Autowired
-    private MockMvc mockmvc;
-    @Autowired
-    private ObjectMapper objectMapper;
+public class RenamePlayerE2ETests extends IntegrationTests {
+
 
     @Autowired
     private PlayerRepository playerRepository;
@@ -38,6 +32,7 @@ public class RenamePlayerE2ETests {
 
         var dto =new RenamePlayerDTO("player");
         var result=mockmvc.perform(MockMvcRequestBuilders.patch("/players/"+existingPlayer.getId()+"/rename")
+                        .header("Authorization",createJWT())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(dto)))
                 .andExpect(MockMvcResultMatchers.status().isOk());
@@ -56,6 +51,7 @@ public class RenamePlayerE2ETests {
 
         var dto =new RenamePlayerDTO("player");
          mockmvc.perform(MockMvcRequestBuilders.patch("/players/garbage/rename")
+                         .header("Authorization",createJWT())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(dto)))
                 .andExpect(MockMvcResultMatchers.status().isNotFound())

@@ -1,19 +1,25 @@
-package com.ancyracademy.esportsclash.player;
+package com.ancyracademy.esportsclash.auth.infrastructure.spring;
 
+import com.ancyracademy.esportsclash.auth.application.services.jwtservice.JwtService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
 
     @Bean
-    SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-       http.authorizeHttpRequests(it->it.anyRequest().permitAll())
+    SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http, JwtService jwtService
+    ) throws Exception {
+       http.addFilterBefore(new JwtAuthenticationFilter(jwtService), UsernamePasswordAuthenticationFilter.class)
+               .authorizeHttpRequests(
+                       it->it.requestMatchers("/auth/**").permitAll()
+                               .anyRequest().authenticated())
                .formLogin(it->it.disable())
                .httpBasic(it->it.disable())
                .csrf(it->it.disable())

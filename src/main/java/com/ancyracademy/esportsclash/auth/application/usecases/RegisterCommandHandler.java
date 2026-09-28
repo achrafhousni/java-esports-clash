@@ -1,8 +1,9 @@
 package com.ancyracademy.esportsclash.auth.application.usecases;
 
 import an.awesome.pipelinr.Command;
+import com.ancyracademy.esportsclash.auth.application.exceptions.EmailAddressUnavailableException;
 import com.ancyracademy.esportsclash.auth.application.services.passwordhasher.PasswordHasher;
-import com.ancyracademy.esportsclash.auth.application.usecases.ports.UserRepository;
+import com.ancyracademy.esportsclash.auth.application.ports.UserRepository;
 import com.ancyracademy.esportsclash.auth.domain.model.User;
 import com.ancyracademy.esportsclash.player.domain.model.viewmodel.IdResponse;
 
@@ -22,7 +23,7 @@ public class RegisterCommandHandler implements Command.Handler<RegisterCommand, 
     public IdResponse handle(RegisterCommand registerCommand) {
         var isEmailAddressAvailable = userRepository.isEmailAddressAvailable(registerCommand.getEmailAddress());
       if(!isEmailAddressAvailable){
-        throw new IllegalArgumentException("Email address is already in use");
+        throw new EmailAddressUnavailableException("Email address is already in use");
       }
 
         var user= new User(UUID.randomUUID().toString(),

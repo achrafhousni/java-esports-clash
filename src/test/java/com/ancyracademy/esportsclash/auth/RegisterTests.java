@@ -1,22 +1,23 @@
 package com.ancyracademy.esportsclash.auth;
 
+import com.ancyracademy.esportsclash.auth.application.exceptions.EmailAddressUnavailableException;
 import com.ancyracademy.esportsclash.auth.application.services.passwordhasher.BcryptPasswordHasher;
 import com.ancyracademy.esportsclash.auth.application.services.passwordhasher.PasswordHasher;
 import com.ancyracademy.esportsclash.auth.application.usecases.RegisterCommand;
 import com.ancyracademy.esportsclash.auth.application.usecases.RegisterCommandHandler;
-import com.ancyracademy.esportsclash.auth.application.usecases.infrastructure.persistence.ram.InMemoryUserRepository;
-import com.ancyracademy.esportsclash.auth.application.usecases.ports.UserRepository;
+import com.ancyracademy.esportsclash.auth.infrastructure.persistence.ram.InMemoryUserRepository;
+import com.ancyracademy.esportsclash.auth.application.ports.UserRepository;
 import com.ancyracademy.esportsclash.auth.domain.model.User;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class RegisterCommandHandlerTests {
+public class RegisterTests {
 
 
-    private InMemoryUserRepository repository = new InMemoryUserRepository();
-    PasswordHasher passwordHasher = new BcryptPasswordHasher();
+    private UserRepository repository = new InMemoryUserRepository();
+    private PasswordHasher passwordHasher = new BcryptPasswordHasher();
 
     public RegisterCommandHandler createCommandHandler(){
         return new RegisterCommandHandler(repository, passwordHasher);
@@ -37,7 +38,7 @@ public class RegisterCommandHandlerTests {
         User actualUser= repository.findById(response.getId()).get();
         Assertions.assertEquals("contact@ancry.fr",actualUser.getEmailAddress());
         //Assert.assertEquals("password",actualUser.getPassword());
-        Assertions.assertTrue(passwordHasher.match(command.getPassword(), actualUser.getPassword()));
+        Assertions.assertTrue(passwordHasher.match(command.getPassword(), actualUser.getPasswordHash()));
     }
 
     @Test
@@ -49,7 +50,7 @@ public class RegisterCommandHandlerTests {
                 "password");
         var  commandHandler= createCommandHandler();
 
-        var exception = Assert.assertThrows(  IllegalArgumentException.class, ()->commandHandler.handle(command));
+        var exception = Assert.assertThrows(  EmailAddressUnavailableException.class, ()->commandHandler.handle(command));
 
 
     }

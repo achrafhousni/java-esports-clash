@@ -1,15 +1,18 @@
 package com.ancyracademy.esportsclash.player.application.usecases;
 
 import an.awesome.pipelinr.Command;
+import com.ancyracademy.esportsclash.auth.application.ports.AuthContext;
 import com.ancyracademy.esportsclash.core.domain.exceptions.NotFoundException;
 import com.ancyracademy.esportsclash.player.application.usecases.ports.PlayerRepository;
 
 public class DeletePlayerCommandHandler implements Command.Handler<DeletePlayerCommand,Void>{
 
     private final PlayerRepository playerRepository;
+   // private final AuthContext auth;
 
     public DeletePlayerCommandHandler(PlayerRepository playerRepository) {
         this.playerRepository = playerRepository;
+        //this.auth = auth;
     }
 
     @Override

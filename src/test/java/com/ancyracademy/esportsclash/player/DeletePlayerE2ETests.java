@@ -1,5 +1,6 @@
 package com.ancyracademy.esportsclash.player;
 
+ import com.ancyracademy.esportsclash.IntegrationTests;
  import com.ancyracademy.esportsclash.PostgreSQLTestConfiguration;
  import com.ancyracademy.esportsclash.player.application.usecases.ports.PlayerRepository;
 import com.ancyracademy.esportsclash.player.domain.model.Player;
@@ -15,16 +16,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-@Import(PostgreSQLTestConfiguration.class)
-@Transactional
-public class DeletePlayerE2ETests {
 
-    @Autowired
-    private MockMvc mockmvc;
-    @Autowired
-    private ObjectMapper objectMapper;
+public class DeletePlayerE2ETests extends IntegrationTests {
+
 
     @Autowired
     private PlayerRepository playerRepository;
@@ -34,7 +28,9 @@ public class DeletePlayerE2ETests {
         playerRepository.save(existingPlayer);
 
        mockmvc.perform(MockMvcRequestBuilders.delete("/players/"+existingPlayer.getId())
+                       .header("Authorization",createJWT())
                 )
+
                 .andExpect(MockMvcResultMatchers.status().isNoContent());
 
 
@@ -48,6 +44,7 @@ public class DeletePlayerE2ETests {
     @Test
     public void whenPlayerDoesNotExist_shouldFail() throws Exception{
         mockmvc.perform(MockMvcRequestBuilders.delete("/players/garbage")
+                        .header("Authorization",createJWT())
                 )
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
 

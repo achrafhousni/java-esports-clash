@@ -1,6 +1,7 @@
 package com.ancyracademy.esportsclash.player;
 
 
+ import com.ancyracademy.esportsclash.IntegrationTests;
  import com.ancyracademy.esportsclash.PostgreSQLTestConfiguration;
 
  import com.ancyracademy.esportsclash.player.application.usecases.ports.PlayerRepository;
@@ -19,16 +20,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
  import org.springframework.transaction.annotation.Transactional;
  import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-@Import(PostgreSQLTestConfiguration.class)
-@Transactional
-public class CreatePlayerE2ETests {
 
-    @Autowired
-    private MockMvc mockmvc;
-    @Autowired
-    private ObjectMapper objectMapper;
+public class CreatePlayerE2ETests extends IntegrationTests {
 
     @Autowired
     private PlayerRepository playerRepository;
@@ -36,6 +29,7 @@ public class CreatePlayerE2ETests {
     public void shouldCreatePlayer() throws Exception{
        var dto =new CreatePlayerDTO("player");
        var result=mockmvc.perform(MockMvcRequestBuilders.post("/players")
+                       .header("Authorization",createJWT())
                .contentType(MediaType.APPLICATION_JSON)
                .content(objectMapper.writeValueAsString(dto)))
                .andExpect(MockMvcResultMatchers.status().isCreated())
