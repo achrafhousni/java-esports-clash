@@ -7,7 +7,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="players")
-public class Player extends BaseEntity {
+public class Player extends BaseEntity<Player> {
 
     @Column
     private String name;
@@ -33,4 +33,10 @@ public class Player extends BaseEntity {
         this.name=name;
         return name;
     }
+
+    @Override
+    public Player deepClone(){
+        return new Player(this.id,this.name);
+    }
+
 }
