@@ -14,9 +14,10 @@ public class RemovePlayerFromTeamCommandHandler  implements Command.Handler<Remo
     @Override
     public Void handle(RemovePlayerFromTeamCommand command) {
 
-       var team = teamRepository.findById(command.getTeamId()).orElseThrow(()->new NotFoundException("Team",command.getTeamId()));
+       var team = teamRepository.findById(command.getTeamId()).orElseThrow(
+               ()->new NotFoundException("Team",command.getTeamId()));
        team.removeMember(command.getPlayerId());
-        teamRepository.save(team);
+        //teamRepository.save(team);
         return null;
     }
 }

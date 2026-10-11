@@ -1,14 +1,12 @@
 package com.ancyracademy.esportsclash.team.infrastructure.spring.dto;
 
-import com.ancyracademy.esportsclash.team.domain.model.Role;
-
-public class RemovePlayerToTeamDTO {
+public class RemovePlayerFromTeamDTO {
     private String playerId;
     private String teamId;
-    public RemovePlayerToTeamDTO() {
+    public RemovePlayerFromTeamDTO() {
     }
 
-    public RemovePlayerToTeamDTO(String playerId, String teamId) {
+    public RemovePlayerFromTeamDTO(String playerId, String teamId) {
         this.playerId = playerId;
         this.teamId = teamId;
     }

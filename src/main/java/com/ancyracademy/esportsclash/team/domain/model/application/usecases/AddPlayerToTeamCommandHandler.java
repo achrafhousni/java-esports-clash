@@ -23,7 +23,7 @@ public class AddPlayerToTeamCommandHandler implements Command.Handler<AddPlayerT
         var team = teamRepository.findById(command.getTeamId())
                 .orElseThrow(()->new NotFoundException("Team",command.getTeamId()));
         team.addMember(player.getId(),command.getRole());
-        ///teamRepository.save(team);
+        teamRepository.save(team);
         return null;
     }
 }

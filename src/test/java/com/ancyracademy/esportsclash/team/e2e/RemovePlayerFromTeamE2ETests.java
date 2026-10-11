@@ -7,17 +7,16 @@ import com.ancyracademy.esportsclash.team.domain.model.Role;
 import com.ancyracademy.esportsclash.team.domain.model.Team;
 import com.ancyracademy.esportsclash.team.domain.model.application.ports.TeamRepository;
 import com.ancyracademy.esportsclash.team.infrastructure.spring.dto.AddPlayerToTeamDTO;
+import com.ancyracademy.esportsclash.team.infrastructure.spring.dto.RemovePlayerFromTeamDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
- import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.springframework.web.servlet.function.RequestPredicates.contentType;
-
-public class AddPlayerToTeamE2ETests extends IntegrationTests {
+public class RemovePlayerFromTeamE2ETests extends IntegrationTests {
 
 
    Team team;
@@ -38,14 +37,16 @@ public class AddPlayerToTeamE2ETests extends IntegrationTests {
         player =new Player("123","Player");
 
         team =new Team("123","Team");
-        teamRepository.save(team);
+        team.addMember(player.getId(),Role.TOP);
         playerRepository.save(player);
+        teamRepository.save(team);
+
     }
     @Test
-    public void shouldAddPlayerToTeam() throws Exception{
+    public void shouldRemovePlayerFromTeam() throws Exception{
 
-        var dto =new AddPlayerToTeamDTO(player.getId(),team.getId(),"Top");
-         mockmvc.perform(MockMvcRequestBuilders.post("/teams/add-player-to-team")
+        var dto =new RemovePlayerFromTeamDTO(player.getId(),team.getId());
+         mockmvc.perform(MockMvcRequestBuilders.post("/teams/remove-player-from-team")
                          . contentType(MediaType.APPLICATION_JSON)
                          .content(objectMapper.writeValueAsString(dto))
                          .header("Authorization",createJWT()))
@@ -53,7 +54,7 @@ public class AddPlayerToTeamE2ETests extends IntegrationTests {
                 .andReturn();
 
         var updatedTeam=teamRepository.findById(team.getId()).get();
-        Assertions.assertTrue(updatedTeam.hasMember(player.getId(),Role.TOP));
+        Assertions.assertFalse(updatedTeam.hasMember(player.getId(),Role.TOP));
 
     }
 

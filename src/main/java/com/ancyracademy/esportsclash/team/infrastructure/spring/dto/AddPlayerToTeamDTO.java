@@ -2,14 +2,14 @@ package com.ancyracademy.esportsclash.team.infrastructure.spring.dto;
 
 import com.ancyracademy.esportsclash.team.domain.model.Role;
 
-public class AddPlayerToTeam {
+public class AddPlayerToTeamDTO {
     private String playerId;
     private String teamId;
     private String role;
-    public AddPlayerToTeam() {
+    public AddPlayerToTeamDTO() {
     }
 
-    public AddPlayerToTeam(String playerId, String teamId, String role) {
+    public AddPlayerToTeamDTO(String playerId, String teamId, String role) {
         this.playerId = playerId;
         this.teamId = teamId;
         this.role = role;
@@ -23,7 +23,10 @@ public class AddPlayerToTeam {
         return teamId;
     }
 
-    public Role getRole() {
+    public String getRole() {
+        return role;
+    }
+   public Role toRole(){
         return Role.fromString(role);
     }
 }
