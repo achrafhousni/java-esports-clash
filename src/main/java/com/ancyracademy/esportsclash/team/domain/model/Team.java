@@ -67,9 +67,12 @@ public class Team extends BaseEntity<Team> {
     }
 
 
+    public Set<TeamMember> getMembers(){
+        return this.members;
+    }
     @Entity
     @Table(name = "team_members")
-     private static class TeamMember extends BaseEntity<TeamMember>{
+     public  static class TeamMember extends BaseEntity<TeamMember>{
         @Column(name = "player_id")
         private String playerId;
 
@@ -102,9 +105,19 @@ public class Team extends BaseEntity<Team> {
             this.role = role;
         }
 
+
+
         @Override
         public TeamMember deepClone() {
          return new TeamMember(this.id, this.playerId, this.teamId, this.role);
+        }
+
+        public Player getPlayer(){
+            return this.player;
+        }
+
+        public Role getRole(){
+            return this.role;
         }
     }
 }

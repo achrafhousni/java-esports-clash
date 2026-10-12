@@ -1,4 +1,4 @@
-package com.ancyracademy.esportsclash.team.domain.model.application.usecases;
+package com.ancyracademy.esportsclash.team.application.usecases;
 
 import an.awesome.pipelinr.Command;
 import com.ancyracademy.esportsclash.team.domain.model.Role;

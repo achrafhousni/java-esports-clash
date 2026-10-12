@@ -5,8 +5,7 @@ import com.ancyracademy.esportsclash.player.application.usecases.ports.PlayerRep
 import com.ancyracademy.esportsclash.player.domain.model.Player;
 import com.ancyracademy.esportsclash.team.domain.model.Role;
 import com.ancyracademy.esportsclash.team.domain.model.Team;
-import com.ancyracademy.esportsclash.team.domain.model.application.ports.TeamRepository;
-import com.ancyracademy.esportsclash.team.infrastructure.spring.dto.AddPlayerToTeamDTO;
+import com.ancyracademy.esportsclash.team.application.ports.TeamRepository;
 import com.ancyracademy.esportsclash.team.infrastructure.spring.dto.RemovePlayerFromTeamDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,8 +31,8 @@ public class RemovePlayerFromTeamE2ETests extends IntegrationTests {
 
     @BeforeEach
     public void setUp(){
-        teamRepository.clear();
-        playerRepository.clear();
+        //teamRepository.clear();
+        //playerRepository.clear();
         player =new Player("123","Player");
 
         team =new Team("123","Team");

@@ -2,10 +2,9 @@ package com.ancyracademy.esportsclash.team.usecases;
 
 import com.ancyracademy.esportsclash.core.domain.exceptions.NotFoundException;
 import com.ancyracademy.esportsclash.team.domain.model.Team;
-import com.ancyracademy.esportsclash.team.domain.model.application.usecases.DeleteTeamCommand;
-import com.ancyracademy.esportsclash.team.domain.model.application.usecases.DeleteTeamCommandHandler;
+import com.ancyracademy.esportsclash.team.application.usecases.DeleteTeamCommand;
+import com.ancyracademy.esportsclash.team.application.usecases.DeleteTeamCommandHandler;
 import com.ancyracademy.esportsclash.team.infrastructure.persistence.ram.InMemoryTeamRepository;
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,8 +1,7 @@
 package com.ancyracademy.esportsclash.team.usecases;
 
-import com.ancyracademy.esportsclash.team.domain.model.Team;
-import com.ancyracademy.esportsclash.team.domain.model.application.usecases.CreateTeamCommand;
-import com.ancyracademy.esportsclash.team.domain.model.application.usecases.CreateTeamCommandHandler;
+import com.ancyracademy.esportsclash.team.application.usecases.CreateTeamCommand;
+import com.ancyracademy.esportsclash.team.application.usecases.CreateTeamCommandHandler;
 import com.ancyracademy.esportsclash.team.infrastructure.persistence.ram.InMemoryTeamRepository;
 import org.junit.jupiter.api.Test;
 

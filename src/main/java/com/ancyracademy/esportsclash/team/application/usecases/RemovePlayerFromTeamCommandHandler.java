@@ -1,9 +1,8 @@
-package com.ancyracademy.esportsclash.team.domain.model.application.usecases;
+package com.ancyracademy.esportsclash.team.application.usecases;
 
 import an.awesome.pipelinr.Command;
 import com.ancyracademy.esportsclash.core.domain.exceptions.NotFoundException;
-import com.ancyracademy.esportsclash.player.application.usecases.ports.PlayerRepository;
-import com.ancyracademy.esportsclash.team.domain.model.application.ports.TeamRepository;
+import com.ancyracademy.esportsclash.team.application.ports.TeamRepository;
 
 public class RemovePlayerFromTeamCommandHandler  implements Command.Handler<RemovePlayerFromTeamCommand,Void> {
     TeamRepository teamRepository;

@@ -1,16 +1,12 @@
 package com.ancyracademy.esportsclash.team.e2e;
 
 import com.ancyracademy.esportsclash.IntegrationTests;
-import com.ancyracademy.esportsclash.player.domain.model.viewmodel.IdResponse;
 import com.ancyracademy.esportsclash.team.domain.model.Team;
-import com.ancyracademy.esportsclash.team.domain.model.application.ports.TeamRepository;
-import com.ancyracademy.esportsclash.team.infrastructure.spring.dto.CreateTeamDTO;
-import org.junit.Assert;
+import com.ancyracademy.esportsclash.team.application.ports.TeamRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 

@@ -1,4 +1,4 @@
-package com.ancyracademy.esportsclash.team.domain.model.application.ports;
+package com.ancyracademy.esportsclash.team.application.ports;
 
 import com.ancyracademy.esportsclash.core.infrastructure.persistence.BaseRepository;
 import com.ancyracademy.esportsclash.team.domain.model.Team;

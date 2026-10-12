@@ -1,18 +1,9 @@
 package com.ancyracademy.esportsclash.team.infrastructure.spring.controller;
 
 import an.awesome.pipelinr.Pipeline;
-import com.ancyracademy.esportsclash.player.application.usecases.CreatePlayerCommand;
-import com.ancyracademy.esportsclash.player.application.usecases.DeletePlayerCommand;
-import com.ancyracademy.esportsclash.player.application.usecases.GetPlayerByIdCommand;
-import com.ancyracademy.esportsclash.player.application.usecases.RenamePlayerCommand;
 import com.ancyracademy.esportsclash.player.domain.model.viewmodel.IdResponse;
-import com.ancyracademy.esportsclash.player.domain.model.viewmodel.PlayerViewModel;
-import com.ancyracademy.esportsclash.player.infrastructure.spring.CreatePlayerDTO;
-import com.ancyracademy.esportsclash.player.infrastructure.spring.RenamePlayerDTO;
-import com.ancyracademy.esportsclash.team.domain.model.application.usecases.AddPlayerToTeamCommand;
-import com.ancyracademy.esportsclash.team.domain.model.application.usecases.CreateTeamCommand;
-import com.ancyracademy.esportsclash.team.domain.model.application.usecases.DeleteTeamCommand;
-import com.ancyracademy.esportsclash.team.domain.model.application.usecases.RemovePlayerFromTeamCommand;
+import com.ancyracademy.esportsclash.team.application.usecases.*;
+import com.ancyracademy.esportsclash.team.domain.model.viewmodel.TeamViewModel;
 import com.ancyracademy.esportsclash.team.infrastructure.spring.dto.AddPlayerToTeamDTO;
 import com.ancyracademy.esportsclash.team.infrastructure.spring.dto.CreateTeamDTO;
 import com.ancyracademy.esportsclash.team.infrastructure.spring.dto.RemovePlayerFromTeamDTO;
@@ -54,5 +45,11 @@ public class TeamController {
     public ResponseEntity<Void> deleteTeam(@PathVariable String id){
         this.pipeline.send(new DeleteTeamCommand(id));
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<TeamViewModel> getTeamById(@PathVariable String id){
+        var result=this.pipeline.send(new GetTeamByIdCommand(id));
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

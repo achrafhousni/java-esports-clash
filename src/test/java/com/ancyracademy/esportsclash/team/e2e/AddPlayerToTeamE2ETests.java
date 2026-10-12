@@ -5,7 +5,7 @@ import com.ancyracademy.esportsclash.player.application.usecases.ports.PlayerRep
 import com.ancyracademy.esportsclash.player.domain.model.Player;
 import com.ancyracademy.esportsclash.team.domain.model.Role;
 import com.ancyracademy.esportsclash.team.domain.model.Team;
-import com.ancyracademy.esportsclash.team.domain.model.application.ports.TeamRepository;
+import com.ancyracademy.esportsclash.team.application.ports.TeamRepository;
 import com.ancyracademy.esportsclash.team.infrastructure.spring.dto.AddPlayerToTeamDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,8 +14,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
-import static org.springframework.web.servlet.function.RequestPredicates.contentType;
 
 public class AddPlayerToTeamE2ETests extends IntegrationTests {
 

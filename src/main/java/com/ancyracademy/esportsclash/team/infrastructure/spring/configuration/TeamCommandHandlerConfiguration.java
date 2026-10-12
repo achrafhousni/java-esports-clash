@@ -1,13 +1,9 @@
 package com.ancyracademy.esportsclash.team.infrastructure.spring.configuration;
 
-import com.ancyracademy.esportsclash.player.application.usecases.CreatePlayerCommandHandler;
 import com.ancyracademy.esportsclash.player.application.usecases.ports.PlayerRepository;
-import com.ancyracademy.esportsclash.team.domain.model.application.ports.TeamRepository;
-import com.ancyracademy.esportsclash.team.domain.model.application.usecases.AddPlayerToTeamCommand;
-import com.ancyracademy.esportsclash.team.domain.model.application.usecases.AddPlayerToTeamCommandHandler;
-import com.ancyracademy.esportsclash.team.domain.model.application.usecases.CreateTeamCommandHandler;
-import com.ancyracademy.esportsclash.team.domain.model.application.usecases.RemovePlayerFromTeamCommandHandler;
-import com.ancyracademy.esportsclash.team.domain.model.application.usecases.DeleteTeamCommandHandler;
+import com.ancyracademy.esportsclash.team.application.ports.TeamQueries;
+import com.ancyracademy.esportsclash.team.application.ports.TeamRepository;
+import com.ancyracademy.esportsclash.team.application.usecases.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -33,6 +29,13 @@ public class TeamCommandHandlerConfiguration {
     public RemovePlayerFromTeamCommandHandler removePlayerFromTeamCommandHandler( TeamRepository teamRepository){
         return new RemovePlayerFromTeamCommandHandler(teamRepository);
     }
+
+    @Bean
+    public GetTeamByIdCommandHandler getTeamByIdCommandHandler(TeamQueries teamQueries){
+        return new GetTeamByIdCommandHandler(teamQueries);
+    }
+
+
 
 
 

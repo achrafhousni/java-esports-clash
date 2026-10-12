@@ -3,6 +3,7 @@ package com.ancyracademy.esportsclash;
 import com.ancyracademy.esportsclash.auth.application.services.jwtservice.JwtService;
 import com.ancyracademy.esportsclash.auth.application.ports.UserRepository;
 import com.ancyracademy.esportsclash.auth.domain.model.User;
+import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,6 +29,9 @@ public class IntegrationTests {
     @Autowired
     protected JwtService jwtService;
 
+    @Autowired
+    private EntityManager entityManager;
+
     protected String createJWT(){
         var user=userRepository.findByEmailAddress("contact@ancryacademy").orElse(null);
 
@@ -36,5 +40,10 @@ if(user==null){
         userRepository.save(user);
     }
         return "Bearer "+jwtService.tokenize(user);
+    }
+
+    public void clearDataBaseCache(){
+        entityManager.flush();
+        entityManager.clear();
     }
 }
