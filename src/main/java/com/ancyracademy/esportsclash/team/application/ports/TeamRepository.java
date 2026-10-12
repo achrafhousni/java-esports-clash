@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface TeamRepository  extends BaseRepository<Team> {
 
-     Optional<Team> findByPlayerId(Long playerId);
+     Optional<Team> findByPlayerId(String playerId);
 }

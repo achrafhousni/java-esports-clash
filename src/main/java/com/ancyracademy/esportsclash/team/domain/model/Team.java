@@ -70,6 +70,10 @@ public class Team extends BaseEntity<Team> {
     public Set<TeamMember> getMembers(){
         return this.members;
     }
+
+    public boolean isComplete(){
+        return this.members.size() == 5;
+    }
     @Entity
     @Table(name = "team_members")
      public  static class TeamMember extends BaseEntity<TeamMember>{

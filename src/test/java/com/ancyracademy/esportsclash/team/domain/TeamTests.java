@@ -40,6 +40,28 @@ public class TeamTests {
         Assertions.assertEquals("Role already taken", exception.getMessage());
     }
 
+    @Test
+    void whenTeamIsNotComplete_shouldThrowException(){
+        var team = new Team("123","TeamName 1");
+        team.addMember("1", Role.TOP);
+        team.addMember("2", Role.JUNGLE);
+        team.addMember("3", Role.MIDDLE);
+        team.addMember("4", Role.BOTTOM);
+
+        Assertions.assertFalse(team.isComplete());
+     }
+
+        @Test
+        void whenTeamHas5Members_shouldBeComplete(){
+            var team = new Team("123","TeamName 1");
+            team.addMember("1", Role.TOP);
+            team.addMember("2", Role.JUNGLE);
+            team.addMember("3", Role.MIDDLE);
+            team.addMember("4", Role.BOTTOM);
+            team.addMember("5", Role.SUPPORT);
+            Assertions.assertTrue(team.isComplete());
+        }
+
 }
 
 @Nested

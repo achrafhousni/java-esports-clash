@@ -32,12 +32,14 @@ public class AddPlayerToTeamE2ETests extends IntegrationTests {
     @BeforeEach
     public void setUp(){
         //teamRepository.clear();
-       // playerRepository.clear();
+        //playerRepository.clear();
         player =new Player("123","Player");
 
         team =new Team("123","Team");
         teamRepository.save(team);
+
         playerRepository.save(player);
+
     }
     @Test
     public void shouldAddPlayerToTeam() throws Exception{

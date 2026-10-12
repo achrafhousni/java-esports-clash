@@ -24,7 +24,7 @@ public class AddPlayerToTeamCommandHandler implements Command.Handler<AddPlayerT
         var team = teamRepository.findById(command.getTeamId())
                 .orElseThrow(()->new NotFoundException("Team",command.getTeamId()));
 
-        var teamPlayerBelongsTo = teamRepository.findById(command.getTeamId());
+        var teamPlayerBelongsTo = teamRepository.findByPlayerId(command.getPlayerId());
 
         if(teamPlayerBelongsTo.isPresent()){
             throw new BadRequestException("Player already in team");

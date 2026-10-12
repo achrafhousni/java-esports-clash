@@ -1,0 +1,64 @@
+package com.ancyracademy.esportsclash.schedule.domain.model;
+
+import com.ancyracademy.esportsclash.core.domain.model.BaseEntity;
+import com.ancyracademy.esportsclash.team.domain.model.Team;
+
+import java.time.LocalDate;
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
+
+public class ScheduleDay extends BaseEntity<ScheduleDay> {
+
+    private LocalDate day;
+
+    private final Map<Moment,Match> matches;
+
+   public  ScheduleDay(String id){
+        super(id);
+        matches=new EnumMap<>(Moment.class);
+    }
+    public  Match    organize(Team t1, Team t2, Moment moment){
+      if(matches.containsKey(moment)){
+            throw new IllegalArgumentException("Moment "+moment+" is already taken");
+      }
+
+
+      var anyTeamAlreadyPlays = matches.values().stream().anyMatch(match -> match.hasTeam(t1.getId())
+      || match.hasTeam(t2.getId()));
+      if(anyTeamAlreadyPlays){
+            throw new IllegalArgumentException("One of the teams already played in the morning");
+      }
+
+      if(!t1.isComplete() || !t2.isComplete()){
+            throw new IllegalArgumentException("One of the teams is incomplete");
+      }
+
+       var match= new Match(UUID.randomUUID().toString(),t1.getId(),t2.getId());
+
+
+      matches.put(moment,match);
+
+      return match;
+     }
+
+    public void cancel(String matchId){
+
+       var moment=matches.keySet().stream().filter(m->matches.get(m).getId().equals(matchId)).findFirst();
+
+        moment.ifPresent(matches::remove);
+    }
+
+    @Override
+    public ScheduleDay deepClone() {
+        return null;
+    }
+
+
+
+    public Optional<Moment> getAt(Moment moment) {
+        return matches.containsKey(moment)?Optional.of(moment):Optional.empty();
+
+    }
+}

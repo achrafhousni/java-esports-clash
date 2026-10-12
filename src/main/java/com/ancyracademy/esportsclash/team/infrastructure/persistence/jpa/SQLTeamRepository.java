@@ -20,7 +20,7 @@ public class SQLTeamRepository extends SQLBaseRepository<Team> implements TeamRe
     }
 
     @Override
-    public Optional<Team> findByPlayerId(Long playerId) {
+    public Optional<Team> findByPlayerId(String playerId) {
   ///  memebers is loaded eagerly
         var query =entityManager.createQuery("SELECT t FROM Team t JOIN t.members m WHERE m.playerId = :playerId", Team.class);
         query.setParameter("playerId", playerId);
