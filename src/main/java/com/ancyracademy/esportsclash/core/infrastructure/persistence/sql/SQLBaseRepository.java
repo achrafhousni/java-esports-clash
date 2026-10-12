@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public abstract class SQLBaseRepository<T extends BaseEntity> implements BaseRepository<T> {
 
-    private final EntityManager entityManager;
+    protected final EntityManager entityManager;
 
     protected SQLBaseRepository(EntityManager entityManager) {
         this.entityManager = entityManager;

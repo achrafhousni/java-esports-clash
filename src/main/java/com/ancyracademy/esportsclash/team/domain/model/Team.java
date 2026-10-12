@@ -105,7 +105,9 @@ public class Team extends BaseEntity<Team> {
             this.role = role;
         }
 
-
+        public String getPlayerId(){
+            return this.playerId;
+        }
 
         @Override
         public TeamMember deepClone() {
