@@ -15,12 +15,11 @@ public class Match extends BaseEntity<Match> {
         this.secondTeam = secondTeam;
      }
 
-
      public boolean hasTeam(String id){
         return firstTeam.equals(id) || secondTeam.equals(id);
      }
     @Override
     public Match deepClone() {
-        return null;
+        return new Match(getId(),firstTeam,secondTeam);
     }
 }

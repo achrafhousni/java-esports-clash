@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
 public class ScheduleDayTests {
     Team createTeam(String id){
 
@@ -41,7 +43,7 @@ public class ScheduleDayTests {
            Team team2 = createTeam("t2");
            var moment = Moment.MORNING;
 
-           var scheduleDay = new ScheduleDay("1");
+           var scheduleDay = new ScheduleDay("1", LocalDate.now());
            scheduleDay.organize(team1, team2, moment);
 
            var match=scheduleDay.getAt(Moment.MORNING);
@@ -57,7 +59,7 @@ public class ScheduleDayTests {
            Team team4 = createTeam("t4");
 
 
-           var scheduleDay = new ScheduleDay("1");
+           var scheduleDay = new ScheduleDay("1", LocalDate.now());
            scheduleDay.organize(team1, team2, Moment.MORNING);
 
            var exception  = Assertions.assertThrows(IllegalArgumentException.class,
@@ -73,7 +75,7 @@ public class ScheduleDayTests {
            Team team3 = createTeam("t3");
 
 
-           var scheduleDay = new ScheduleDay("1");
+           var scheduleDay = new ScheduleDay("1", LocalDate.now());
            scheduleDay.organize(team1, team2, Moment.MORNING);
 
            var exception= Assertions.assertThrows(IllegalArgumentException.class,
@@ -91,7 +93,7 @@ public class ScheduleDayTests {
            Team team3 = createTeam("t3");
 
 
-           var scheduleDay = new ScheduleDay("1");
+           var scheduleDay = new ScheduleDay("1", LocalDate.now());
            scheduleDay.organize(team1, team2, Moment.AFTERNOON);
 
            var exception= Assertions.assertThrows(IllegalArgumentException.class,
@@ -105,7 +107,7 @@ public class ScheduleDayTests {
        public void whenFirstTeamIsInComplete_shouldFails(){
            var t1= createIncompleteTeam("t1");
            var t2= createTeam("t2");
-           var scheduleDay = new ScheduleDay("1");
+           var scheduleDay = new ScheduleDay("1", LocalDate.now());
            var exception= Assertions.assertThrows(IllegalArgumentException.class,
                    ()->scheduleDay.organize(t1, t2, Moment.MORNING));
            Assertions.assertEquals("One of the teams is incomplete",exception.getMessage());
@@ -115,7 +117,7 @@ public class ScheduleDayTests {
        public void whenSecondTeamIsInComplete_shouldFails(){
            var t1= createTeam("t1");
            var t2= createIncompleteTeam("t2");
-           var scheduleDay = new ScheduleDay("1");
+           var scheduleDay = new ScheduleDay("1", LocalDate.now());
            var exception= Assertions.assertThrows(IllegalArgumentException.class,
                    ()->scheduleDay.organize(t1, t2, Moment.MORNING));
            Assertions.assertEquals("One of the teams is incomplete",exception.getMessage());
@@ -131,7 +133,7 @@ public class ScheduleDayTests {
         void shouldCancel(){
             var t1= createTeam("t1");
             var t2= createTeam("t2");
-            var scheduleDay = new ScheduleDay("1");
+            var scheduleDay = new ScheduleDay("1", LocalDate.now());
             var orginazedMatch=scheduleDay.organize(t1, t2, Moment.MORNING);
             scheduleDay.cancel(orginazedMatch.getId());
 
