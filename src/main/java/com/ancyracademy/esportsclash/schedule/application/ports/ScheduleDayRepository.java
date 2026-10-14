@@ -10,4 +10,5 @@ public interface ScheduleDayRepository extends BaseRepository<ScheduleDay> {
 
 
     Optional<ScheduleDay> findByDate(LocalDate date);
+    Optional<ScheduleDay> findByMatchId(String matchId);
 }

@@ -15,4 +15,11 @@ public class InMemoryScheduleDayRepository extends InMemoryBaseRepository<Schedu
                 .filter(scheduleDay -> scheduleDay.getDay().equals(date))
                 .findFirst();
     }
+
+    @Override
+    public Optional<ScheduleDay> findByMatchId(String matchId) {
+        return entities.values().stream()
+                .filter(scheduleDay -> scheduleDay.containsMatch(matchId))
+                .findFirst();
+    }
 }

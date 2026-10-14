@@ -77,4 +77,12 @@ public class ScheduleDay extends BaseEntity<ScheduleDay> {
         return day;
     }
 
- }
+    public boolean containsMatch(String matchId) {
+
+       return matches.values().stream().anyMatch(match -> match.getId().equals(matchId));
+    }
+
+    public boolean haMatches() {
+       return !matches.isEmpty();
+    }
+}
