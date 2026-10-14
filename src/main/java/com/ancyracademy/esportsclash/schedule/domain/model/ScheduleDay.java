@@ -2,6 +2,7 @@ package com.ancyracademy.esportsclash.schedule.domain.model;
 
 import com.ancyracademy.esportsclash.core.domain.model.BaseEntity;
 import com.ancyracademy.esportsclash.team.domain.model.Team;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.EnumMap;
@@ -9,13 +10,23 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
+@Entity
+@Table(name = "schedule_days")
 public class ScheduleDay extends BaseEntity<ScheduleDay> {
 
+    @Column(name = "day")
     private LocalDate day;
 
-    private final Map<Moment,Match> matches;
+    @OneToMany(mappedBy = "scheduleDay", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @MapKeyEnumerated(EnumType.STRING)
+    @MapKeyColumn(name = "moment")
+    private Map<Moment, Match> matches;
 
-   public  ScheduleDay(String id,LocalDate day){
+    public ScheduleDay() {
+        this.matches = new EnumMap<>(Moment.class);
+    }
+
+    public  ScheduleDay(String id,LocalDate day){
         super(id);
         this.day=day;
         this.matches=new EnumMap<>(Moment.class);
@@ -42,7 +53,7 @@ public class ScheduleDay extends BaseEntity<ScheduleDay> {
             throw new IllegalArgumentException("One of the teams is incomplete");
       }
 
-       var match= new Match(UUID.randomUUID().toString(),t1.getId(),t2.getId());
+       var match= new Match(UUID.randomUUID().toString(),this.getId(),t1.getId(),t2.getId());
 
 
       matches.put(moment,match);
